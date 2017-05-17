@@ -70,19 +70,21 @@ const gmailEmail = encodeURIComponent(functions.config().gmail.mail);
 const gmailPassword = encodeURIComponent(functions.config().gmail.password);
 
 
-exports.sendEmail = functions.https.onRequest((re,res) => {
+exports.sendEmail = functions.https.onRequest((request,response) => {
 	const mailTransport = nodemailer.createTransport(`smtps://${gmailEmail}:${gmailPassword}@smtp.gmail.com`);
 	 const mailOptions = {
 	    from: '"Spammy Corp." <noreply@firebase.com>',
-	    to: 'oswalfut_96@hotmail.com, os@fixter.org, contacto@fixter.org, oswaldinho963@gmail.com',
+	    to: 'oswalfut_96@hotmail.com, os@fixter.org, oswaldinho963@gmail.com',
 	    subject: 'hunger ✔', // Subject line
 	    text: 'Una pizza o khé ?', // plain text body
 	    html: '<b>Pizza or what ?</b>' // html body
 	  };
 	  return mailTransport.sendMail(mailOptions).then(() => {
 	      console.log('se envió tu correo paps');
+	      response.send('se envió tu correo paps');
 	    }).catch((e) => {
 	    	console.log(e);
 	    });
+
 });
 //FUC%(==ING EMAIL)
